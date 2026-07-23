@@ -1,0 +1,218 @@
+@import 'tailwindcss';
+@import 'tw-animate-css';
+
+/* Dark mode via .dark class on <html> */
+@custom-variant dark (&:is(.dark *));
+
+/* ─── Colour palette ─────────────────────────────────────────────────── */
+@theme inline {
+  /* Primary (blue series matching existing tailwind.config.js) */
+  --color-primary-50:  #eff6ff;
+  --color-primary-100: #dbeafe;
+  --color-primary-200: #bfdbfe;
+  --color-primary-300: #93c5fd;
+  --color-primary-400: #60a5fa;
+  --color-primary-500: #3b82f6;
+  --color-primary-600: #2563eb;
+  --color-primary-700: #1d4ed8;
+  --color-primary-800: #1e40af;
+  --color-primary-900: #1e3a8a;
+
+  /* Accent (amber) */
+  --color-accent-500: #f59e0b;
+  --color-accent-600: #d97706;
+
+  /* Token aliases for shadcn/radix components */
+  --color-background:          hsl(var(--background));
+  --color-foreground:          hsl(var(--foreground));
+  --color-border:              hsl(var(--border));
+  --color-input:               hsl(var(--input));
+  --color-ring:                hsl(var(--ring));
+  --color-card:                hsl(var(--card));
+  --color-card-foreground:     hsl(var(--card-foreground));
+  --color-popover:             hsl(var(--popover));
+  --color-popover-foreground:  hsl(var(--popover-foreground));
+  --color-muted:               hsl(var(--muted));
+  --color-muted-foreground:    hsl(var(--muted-foreground));
+  --color-destructive:         hsl(var(--destructive));
+  --color-destructive-foreground: hsl(var(--destructive-foreground));
+  --color-chart-1: hsl(var(--chart-1));
+  --color-chart-2: hsl(var(--chart-2));
+  --color-chart-3: hsl(var(--chart-3));
+  --color-chart-4: hsl(var(--chart-4));
+  --color-chart-5: hsl(var(--chart-5));
+
+  --font-sans: 'Inter', ui-sans-serif, system-ui, sans-serif;
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+}
+
+/* ─── Light mode CSS variables ──────────────────────────────────────── */
+:root {
+  --radius: 0.5rem;
+  --background:   210 40% 98%;
+  --foreground:   222 47% 11%;
+  --card:             0 0% 100%;
+  --card-foreground:  222 47% 11%;
+  --popover:            0 0% 100%;
+  --popover-foreground: 222 47% 11%;
+  --primary:            221 83% 53%;
+  --primary-foreground: 0 0% 100%;
+  --secondary:            210 40% 96%;
+  --secondary-foreground: 222 47% 11%;
+  --muted:            210 40% 96%;
+  --muted-foreground: 215 16% 47%;
+  --accent:            210 40% 96%;
+  --accent-foreground: 222 47% 11%;
+  --destructive:            0 84% 60%;
+  --destructive-foreground: 0 0% 100%;
+  --border: 214 32% 91%;
+  --input:  214 32% 91%;
+  --ring:   221 83% 53%;
+  --chart-1: 221 83% 53%;
+  --chart-2:  38 92% 50%;
+  --chart-3: 142 76% 36%;
+  --chart-4:   0 84% 60%;
+  --chart-5: 262 83% 58%;
+}
+
+/* ─── Dark mode CSS variables ───────────────────────────────────────── */
+.dark {
+  --background:   222 47%  7%;
+  --foreground:   213 31% 91%;
+  --card:             222 47% 11%;
+  --card-foreground:  213 31% 91%;
+  --popover:            222 47% 11%;
+  --popover-foreground: 213 31% 91%;
+  --primary:            221 83% 53%;
+  --primary-foreground: 0 0% 100%;
+  --secondary:            221 39% 20%;
+  --secondary-foreground: 213 31% 91%;
+  --muted:            221 39% 15%;
+  --muted-foreground: 215 16% 57%;
+  --accent:            221 39% 20%;
+  --accent-foreground: 213 31% 91%;
+  --destructive:            0 84% 60%;
+  --destructive-foreground: 0 0% 100%;
+  --border: 221 39% 20%;
+  --input:  221 39% 25%;
+  --ring:   221 83% 53%;
+  --chart-1: 221 83% 53%;
+  --chart-2:  38 92% 50%;
+  --chart-3: 142 76% 36%;
+  --chart-4:   0 84% 60%;
+  --chart-5: 262 83% 58%;
+}
+
+/* ─── Base reset ────────────────────────────────────────────────────── */
+@layer base {
+  *, *::before, *::after { box-sizing: border-box; }
+  html, body, #root { height: 100%; }
+  body {
+    font-family: 'Inter', ui-sans-serif, system-ui, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    background-color: rgb(249 250 251); /* gray-50 */
+    color: rgb(17 24 39);               /* gray-900 */
+  }
+  .dark body {
+    background-color: rgb(3 7 18);     /* gray-950 */
+    color: rgb(243 244 246);           /* gray-100 */
+  }
+}
+
+/* ─── Component classes (plain CSS — no @apply with custom class names) */
+
+/* Button shell — variant colours come from inline Tailwind classes in JSX  */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  border-radius: 0.5rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 150ms, color 150ms, border-color 150ms;
+  white-space: nowrap;
+}
+.btn:focus { outline: none; }
+.btn:focus-visible { box-shadow: 0 0 0 2px #fff, 0 0 0 4px #2563eb; }
+.btn:disabled { opacity: 0.5; cursor: not-allowed; pointer-events: none; }
+
+/* Card surface */
+.card {
+  background-color: #fff;
+  border-radius: 0.75rem;
+  box-shadow: 0 1px 2px 0 rgba(0,0,0,.05);
+  border: 1px solid rgb(229 231 235);   /* gray-200 */
+}
+.dark .card {
+  background-color: rgb(17 24 39);      /* gray-900 */
+  border-color: rgb(31 41 55);          /* gray-800 */
+}
+
+/* Form input */
+.input-base {
+  display: block;
+  width: 100%;
+  border-radius: 0.5rem;
+  border: 1px solid rgb(209 213 219);   /* gray-300 */
+  background-color: #fff;
+  padding: 0.5rem 0.75rem;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  color: inherit;
+  outline: none;
+  transition: border-color 150ms, box-shadow 150ms;
+}
+.input-base::placeholder { color: rgb(156 163 175); }
+.input-base:focus {
+  border-color: #2563eb;
+  box-shadow: 0 0 0 3px rgba(37,99,235,.25);
+}
+.input-base:disabled {
+  background-color: rgb(243 244 246);
+  cursor: not-allowed;
+  opacity: 0.7;
+}
+.dark .input-base {
+  border-color: rgb(55 65 81);          /* gray-700 */
+  background-color: rgb(17 24 39);      /* gray-900 */
+}
+.dark .input-base:focus { border-color: #3b82f6; box-shadow: 0 0 0 3px rgba(59,130,246,.25); }
+.dark .input-base:disabled { background-color: rgb(31 41 55); }
+
+/* Form label */
+.label-base {
+  display: block;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: rgb(55 65 81);                 /* gray-700 */
+  margin-bottom: 0.25rem;
+}
+.dark .label-base { color: rgb(209 213 219); } /* gray-300 */
+
+/* Skeleton loader */
+.skeleton {
+  border-radius: 0.25rem;
+  background-color: rgb(229 231 235);   /* gray-200 */
+  animation: pulse 2s cubic-bezier(.4,0,.6,1) infinite;
+}
+.dark .skeleton { background-color: rgb(31 41 55); } /* gray-800 */
+
+/* Dashboard stat card */
+.stat-card {
+  background-color: #fff;
+  border-radius: 0.75rem;
+  box-shadow: 0 1px 2px 0 rgba(0,0,0,.05);
+  border: 1px solid rgb(229 231 235);
+  padding: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+.dark .stat-card {
+  background-color: rgb(17 24 39);
+  border-color: rgb(31 41 55);
+}

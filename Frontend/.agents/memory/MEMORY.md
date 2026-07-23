@@ -1,0 +1,1 @@
+- [DriveHub frontend architecture](drivehub-frontend.md) — Tailwind v4 @apply rules, routing, role guards, and API constraints for the dealership app.

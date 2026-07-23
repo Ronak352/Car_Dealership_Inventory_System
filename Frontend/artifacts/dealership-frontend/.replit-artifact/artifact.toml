@@ -1,0 +1,27 @@
+kind = "web"
+previewPath = "/"
+title = "Car Dealership Frontend"
+version = "1.0.0"
+id = "artifacts/dealership-frontend"
+router = "path"
+
+[[services]]
+name = "web"
+paths = [ "/" ]
+localPort = 19310
+
+[services.development]
+run = "pnpm --filter @workspace/dealership-frontend run dev"
+
+[services.production]
+build = [ "pnpm", "--filter", "@workspace/dealership-frontend", "run", "build" ]
+serve = "static"
+publicDir = "artifacts/dealership-frontend/dist/public"
+
+[[services.production.rewrites]]
+from = "/*"
+to = "/index.html"
+
+[services.env]
+PORT = "19310"
+BASE_PATH = "/"
